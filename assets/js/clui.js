@@ -81,7 +81,7 @@
 		});
 	
 		// jscroll
-		if(coutCover > 5 && coutCover != 6){
+		if(coutCover > 5){
 		$('.main-content .posts-holder').jscroll({
 			loadingHtml: '<div class="col-md-12 text-center" style="padding:12px 0"><i class="fa fa-cog fa-spin fa-lg"></i></div>',
 			nextSelector: 'a.older-posts',
