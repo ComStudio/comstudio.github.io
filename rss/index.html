@@ -1,0 +1,1099 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[ComStudio]]></title><description><![CDATA[{DevBlog}]]></description><link>http://comstudio.github.io/</link><generator>Ghost v0.4.2</generator><lastBuildDate>Mon, 13 Oct 2014 21:44:59 GMT</lastBuildDate><atom:link href="http://comstudio.github.io/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Instalacja Android 4.4 KitKat w VirtualBox]]></title><description><![CDATA[<p><i class="post-cover-icon" data-icon="fa-android" data-color="#FFFFFF" data-bg-color="#fe0008"></i> </p>
+
+<p>Początki systemu Android sięgają roku 2009, kiedy to pojawiła się pierwsza stabilna wersja 1.5 Cupcake. Wraz z rozwojem do wersji drugiej 2.2 Froyo, a nastepnie 2.3 Gingerbread, popularność tego systemu diametralnie wzrosła. Jak wynika z raportu przygotowanego dla OpenSignal w sierpniu bierzącego roku na rynku jest obecnie 18796 różnych modeli urządzeń z Androidem. </p>
+
+<p>Jak duża to jest skala najlepiej obrazuje ta ikonografika. <br />
+<img src='http://comstudio.github.io/assets/img/android_device.jpg'  alt="android_device" /> <br />
+Fot/Źródło: opensignal.com</p>
+
+<p>Z raportu tego wynika również, że obecnie najpopularnieszą wersją jest 4.4 KitKat. Ale co jeśli nasz producent nie zapewnił nam aktualizacji do najnowszej wersji, z pomocą przychodzi projekt <a href='http://www.android-x86.org/' >Android-x86</a>, który zajmuję się przeportowywaniem Androida na platforme x86. W chwili obecnej najnowszą wersją jest <a href='http://www.android-x86.org/download' >Android-x86 4.4 R1 KitKat</a>.  </p>
+
+<h2 id="instalacjawvirtualbox">Instalacja w VirtualBox</h2>
+
+<p>Instalacja jest dziecinnie prosta.</p>
+
+<ul>
+<li>Należy wybrać niebieski przycisk <strong>New</strong> w VirtualBox, nadać nazwe naszej wirtualnej maszynie np. <strong>Android 4.4 KitKat</strong>, następnie wybrać typ jako <strong>Linux</strong> i wersje <strong>2.6/3.x</strong>.</li>
+<li>Ustawić pamięć jako <strong>1024 MB</strong> i kliknąć <strong>Create</strong>.</li>
+</ul>
+
+<p><img src='http://comstudio.github.io/assets/img/createvm.png'  alt="create vm" /></p>
+
+<ul>
+<li>W oknie <strong>Create Virtual Hard Drive</strong> należy zmienić rozmiar na <strong>6 GB</strong> i ustawić <strong>Fixed size</strong>.</li>
+</ul>
+
+<p><img src='http://comstudio.github.io/assets/img/createvd.png'  alt="create vhd" /></p>
+
+<ul>
+<li>Następnie klikamy <strong>Settings</strong> i przechodzimy do zakładki <strong>Storage</strong>, gdzie dodajemy nasz plik z obrazem ISO : <strong>android-x86-4.4-r1.iso</strong>, zaznaczamy <strong><u>L</u>ive CD/DVD</strong> i zatwierdzamy nasz wybór.
+<img src='http://comstudio.github.io/assets/img/vmsettings.png'  alt="iso" />  </li>
+<li>Teraz uruchamiamy naszą wirtualną maszynę i wybieramy <strong>Instalation</strong>, zatwierdzająć klawiszem <strong>Enter</strong>. </li>
+</ul>
+
+<p><img src='http://comstudio.github.io/assets/img/install1.png'  alt="install" /></p>
+
+<ul>
+<li>Kolejnym krokiem jest utworzenie nowej partycji wybieramy <strong>Create/modify partitions</strong>, czasami zamiast tego ekranu na ekranie pojawia się komunikat: <strong>kernel panic - not syncinng ...</strong> W tym wypadku należy zrestartować komputer i w BIOS aktywować opcje Virtualization Technology i poraz kolejny uruchomić instalacje.</li>
+</ul>
+
+<p><img src='http://comstudio.github.io/assets/img/install2.png'  alt="install" /></p>
+
+<ul>
+<li>Następnie przechodzimy już do tworzenia partycji na wcześniej zarezerowowanym obszarze. Przesuwamy strzałką w prawo nad <strong>[New]</strong> i zatwierdzamy klawiszem <strong>Enter</strong>. Następnie po raz kolejny klikamy <strong>Enter</strong> zatwierdzając <strong>[Primary]</strong> i ustalamy rozmiar, który pozostawiamy bez zmian poprzez kolejne zatwierdzenie go klawiszem <strong>Enter</strong>.  </li>
+<li>Ustawiamy stworzoną partycje jako <strong>[Bootable]</strong> i wybieramy <strong>[Write]</strong>. Zostaniemy zapytani czy jesteśmy pewni że chcemy ją utworzyć, wpisujemy <strong>yes</strong> i zatwierdzamy. Teraz możemy zamknąć menadżer partycjonowania wybierając <strong>[Quite]</strong>.</li>
+</ul>
+
+<p><img src='http://comstudio.github.io/assets/img/install3.png'  alt="install" /></p>
+
+<ul>
+<li>Wybieramy utworzoną partycje i ustalamy system plików na <strong>ext3</strong> i potwierdzamy, że jesteśmy tego pewni wybierając <strong>&lt; <u>Y</u>es ></strong>.</li>
+<li>Następnie potwierdzamy instalacje boot loadera <strong>Grub</strong>, wybierając <strong>&lt; <u>Y</u>es ></strong>, jest to ważne ponieważ bez niego nasz system się nie uruchomi.</li>
+<li>W kolejnym kroku ustawiamy <strong>/system</strong> jako <strong>read-write</strong> i zatwierdzamy.</li>
+</ul>
+
+<p><img src='http://comstudio.github.io/assets/img/install4.png'  alt="install" /></p>
+
+<ul>
+<li>Teraz czekamy aż wszystko zostanie wypakowane, następnie wysuwamy nasz obraz ISO i zatwierdzamy komunikat poprzez wybranie <strong>Force unmount</strong> i wybieramy na ekranie opcje <strong>Reboot</strong></li>
+</ul>
+
+<p><img src='http://comstudio.github.io/assets/img/install5.png'  alt="install" /></p>
+
+<ul>
+<li>Po uruchomieniu pokaże się ekran wyboru, wybieramy pierwszą opcje i zatwierdzamy ją, po chwili zobaczymy już ekran konfiguracji pierwszego uruchomienia.</li>
+</ul>
+
+<p><img src='http://comstudio.github.io/assets/img/install6.png'  alt="install" /></p>
+
+<ul>
+<li>Wybieramy język <strong>Polski</strong>, w wypadku kiedy mysz nie działa poprawnie z menu wybieramy opcje <strong>Disable Mouse Integration</strong>, następnie <strong>pomijamy</strong> ustawianie sieci Wi-Fi. Na tym etapie konfiguracja się kończy.</li>
+</ul>
+
+<p><img src='http://comstudio.github.io/assets/img/install7.png'  alt="install" /> <br />
+<img src='http://comstudio.github.io/assets/img/install8.png'  alt="install" /></p>
+
+<p>Udanej zabawy!</p>]]></description><link>http://comstudio.github.io/instalacja-android-4-4-kitkat-w-virtualbox/</link><guid isPermaLink="false">7470dd0f-fc5c-4aa6-b4a3-32561bc32098</guid><category><![CDATA[Android]]></category><category><![CDATA[KitKat]]></category><category><![CDATA[VirtualBox]]></category><dc:creator><![CDATA[admin]]></dc:creator><pubDate>Mon, 25 Aug 2014 21:59:42 GMT</pubDate></item><item><title><![CDATA[Festiwal SEO 2014]]></title><description><![CDATA[<p><i class="post-cover-icon" data-icon="fa-google" data-color="#FFFFFF" data-bg-color="#C11B17"></i> <br />
+<strong>Festiwal SEO</strong> już za nami, czas na podsumowanie i krótki komentarz. Było oczywiście ciekawie i na temat, dlatego należa się ogromne podziękowania dla organizatora <strong><a href='http://www.silesiasem.pl/' >Silesia SEM</a></strong>, który stanął na wysokości zadania. Poniżej krótki film z tego wydarzenia, na którym oczywiscie można nas w tłumie znaleźć:</p>
+
+<iframe width="640" height="390" src='http://www.youtube.com/embed/EkCFrI0xEe4'  frameborder="0" allowfullscreen></iframe>  
+
+<p><br> <br />
+    Jako pierwszy zaprezentował się Krzystof Marzec, który przybliżył nam kwestie związane z <strong><a href='http://www.silesiasem.pl/wykrywanie-zaplecz-seo-i-ich-ochrona' >wykrywaniem słabo zabezpieczonych zaplecz dla tysięcy domen</a></strong>. Szkoda tylko, że nie mogliśmy zobaczyć tego na żywym przykładzie, ale wiedza na ten temat napewno się przyda kazdemu SEO-wcowi.</p>
+
+<p>Później na scenie pojawił się Łukasz Rajzer, przybilżając nam <strong>9 punktową</strong> deklarację <strong>White Hat SEO</strong>. Choć jego prezentacja była przedstawiona w dość chaotyczny sposób, pewnie dlatego iż była pierwszą tego typu, to treść w niej zawarta z pewnością to nadrabiała. Zaprezentowana została dobra whitehatowa robota, która jest w zasadzie nie do wykrycia.</p>
+
+<p>Natomiast Przemek Sztal dał nam kilka wskazówek, jak podejść do <strong>SEO o zasięgu globalnym</strong>. Poniżej prezentacja na ten temat:  </p>
+
+<iframe src='http://www.slideshare.net/slideshow/embed_code/35373347'  width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px 1px 0; margin-bottom:5px; max-width: 100%;  margin-left:100px;" allowfullscreen> </iframe>  
+
+<p>Oraz troche wiecej na temat <a href='http://blog.performancemedia.pl/seo/wersje-jezykowe-w-witrynie-internetowej' >wersji językowych w witrynach internetowych</a>.</p>
+
+<p>Zato Konstantin Kanin, przybliżył nam SEO za wschodniej granicy, czyli <strong><a href='http://www.silesiasem.pl/lokalne-wyniki-wyszukiwania-w-yandex' >Yandex</a></strong>, z którym to wiekszość z nas nie ma wogóle do czynienia. Temat był o tyle ciekawy, że pokazywał iż wyszukiwarka może też działać na innych zasadach wyszukiwania. Oczywiście nie zabrakło też kontrowersjnych kwestii kiedy usłyszelismy, że w Rosji jak potrzebujemy "realnych" danych dla jakiegoś oddziału to da się je tam załatwić.  </p>
+
+<iframe src='http://www.slideshare.net/slideshow/embed_code/35383626'  width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px 1px 0; margin-bottom:5px; max-width: 100%; margin-left:100px;" allowfullscreen> </iframe>
+
+<p>Paweł Rabinek opowiedział o <strong><a href='http://www.rabinek.pl/google-news-sluzbie-seo-prezentacja-fsk2014/' >Google News w SEO</a></strong>, nie zabrakło rówież przykładów jak wdrożyć je u siebie. Co nam to daję, w dużym skrócie szybkie pojawienie się w <strong>TOP 3</strong> i <strong>wysoka pozycja pod frazami bazującymi na newsach</strong>.  </p>
+
+<iframe src='http://www.slideshare.net/slideshow/embed_code/35337947'  width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px 1px 0; margin-bottom:5px; max-width: 100%; margin-left:100px;" allowfullscreen> </iframe>
+
+<p>Robert Niechciał, Rafał Kuśnierczyk pokazali, że w zasadzie nie wiadomo jak mamy patrzeć na <strong><a href='http://www.silesiasem.pl/co-to-sa-naturalne-linki-i-jak-je-zdobywac-co-zrobi-google-aby-dopasc-twoja-strone-i-jak-sie-przed-tym-bronic' >nienaturalne linki</a></strong>. Starali się nam udowodnić, że nawet Google nie wie samo jak na to patrzeć. Oczywiścię wspomnieli, iż <strong>Disavow nie jest rozwiązaniem</strong> i <strong>lepiej nie podcinać sobie w ten sposób skrzydeł</strong>.  </p>
+
+<iframe src='http://www.slideshare.net/slideshow/embed_code/35375127'  width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px 1px 0; margin-bottom:5px; max-width: 100%; margin-left:100px;" allowfullscreen> </iframe>
+
+<p>Natomiast <a href='http://goralewicz.co/' >Bartosz Góralewicz</a>, w zasadzie w ostatniej chwili zmienił temat i przedstawił coś o czym wielu z nas zapomina. Jego prezentacją w dużej mierze opierała się o zagadnienie <strong>budowania osobistego brandingu</strong>, bo właśnie od naszej renomy zależy to czy klient zapłaci nam za usługę tyle ile sobie zarzyczymy. Jak powiedział możemy być Fatem Pandą lub Masaratii dla swoich Klientów.</p>
+
+<p>Łukasz Rysiak i Marcin Lejman zrobili krótkie wprowadzenie do <strong>optymalizacji nawigacji fasetowej</strong>.  Jest to przydatne zagadnienie przy tworzeniu sklepów internetowych, doskonałym przykładem jak to robić dobrzę jest sklep <a href='http://www.zalando.pl/' >Zalando</a>, gdzię sposób filtracji treści stoi naprawde na bardzo wysokim poziomie.</p>
+
+<p>W zasiadzie na sam koniec pojawił się Łukasza Żelezny, postać rozsławiona w świecie SEO, w dodatku pochodząca tak samo jak my z Tarnowskich Gór. W swojej prezentacji Łukasz przedstawił jak wygląda <strong><a href='http://www.silesiasem.pl/pozycjonowanie-na-wyspach-seo-uk' >proces rekrutacji do pracy SEO w Anglii</a></strong>, w zależności czy aplikujemy do agencji czy działu SEO in-house. A ponieważ sam przechodził ten proces kilka razy więc widział o czym mówi.</p>
+
+<p>Na koniec pojawił się Maciej Lewiński, który choć nie jest sciśle zwiazany ze swiatem SEO to dał nam ciekawy pomysł jak podejść do <strong><a href='http://www.silesiasem.pl/not-provided-po-mojemu' >not provided</a></strong>. Kiedy zaczął mówić, widać było, iż wiele osób patrzy na niego ze zdziwieniem. Maciej swoim prostym schematem uczulił nas, że nie powinniśmy się dalej kurczowo trzymać słów kluczowych, a zacząć mierzyć mikrocele w Google Analytics.  </p>
+
+<iframe src='http://www.slideshare.net/slideshow/embed_code/35330494'  width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px 1px 0; margin-bottom:5px; max-width: 100%; margin-left:100px;" allowfullscreen> </iframe>]]></description><link>http://comstudio.github.io/festiwal-seo-2014-katowice/</link><guid isPermaLink="false">1db943b2-c35f-4973-a411-4f61890128fe</guid><category><![CDATA[SEO]]></category><category><![CDATA[FSK2014]]></category><dc:creator><![CDATA[admin]]></dc:creator><pubDate>Sat, 05 Jul 2014 18:22:34 GMT</pubDate></item><item><title><![CDATA[Microsoft & Intel Galileo]]></title><description><![CDATA[<p><i class="post-cover-icon" data-icon="fa-cogs" data-color="#FFFFFF" data-bg-color="#5f86ce"></i> <br />
+Intel <sup>®</sup> Galileo płytka oparta o procesor Intel <sup>®</sup> Quark SoC X1000 z taktowaniem 400MHz 16 KBytes L1 cache, to idealne narzedzie dla deweloperów zajmujących się urządzeniami klasy Arduino. <br />
+<img src='http://comstudio.github.io/assets/img/board.png'  alt="intel galileo" width="300px" /> <br />
+W kwietniu na konferencji Microsoft Build Developer Conference 2014, Microsoft poinformował o swoim programie dla deweloperów "Windows Developer Program for IoT", który daje nam możliwość programowania przeróżnych urządzeń w oparciu o tę płytke oraz ich zestaw SDK. Program ten jest otwarty dla wszystkich deweloperów i można do niego dołączyć rejestrując się na stronie <a href='https://www.windowsondevices.com/' >https://www.windowsondevices.com/</a>, gdzie oprócz zestawu narzedzi dostaniemy również układ Intel <sup>®</sup> Galileo całkiem za darmo.</p>]]></description><link>http://comstudio.github.io/intel-galileo/</link><guid isPermaLink="false">368d2d95-d879-4618-a40b-934b59ccd3cd</guid><category><![CDATA[Intel]]></category><category><![CDATA[Microsoft]]></category><dc:creator><![CDATA[admin]]></dc:creator><pubDate>Fri, 04 Jul 2014 00:29:44 GMT</pubDate></item><item><title><![CDATA[Każdy popełnia błędy]]></title><description><![CDATA[<p><i class="post-cover-icon" data-icon="fa-file-code-o" data-color="#FFFFFF" data-bg-color="#c0c0ff"></i> <br />
+Najczęstsze błędy w programowaniu są wynikiem pomyłki/literówki w trakcie pisania aplikacji albo niedostrzeżeniem jakiejś cechy projektowanego algorytmu. Wielu początkujących programistów jest przerażonych, gdy na ekranie pojawią się tajemnicze komunikaty, a w parze z tym idzie niezaradność. Dlatego też skupimy się na zagadnieniu błędu. Omówimy podstawowe komunikaty zgłaszane przez PHP, techniki pomagające zlokalizować i usunąć błędy, a także przedstawimy kilka narzędzi, które umożliwią testowanie naszych aplikacji.  </p>
+
+<ul>  
+    <li><a href="#formatowanie">Formatowanie kodu</a></li>
+    <li><a href="#komunikaty">Komunikaty błędów PHP</a>
+<ul>  
+    <li><a href="#parse_e">Parse error</a></li>
+    <li><a href="#fatal_e">Fatal error</a></li>
+    <li><a href="#warning">Warning</a></li>
+    <li><a href="#notice">Notice</a></li>
+    <li><a href="#biala_s">Biała strona</a></li>
+</ul>  
+
+<p></li> <br />
+    <li><a href="#znak_r">Niepoprawne użycie znaku równości</a></li>
+    <li><a href="#naglowki">Kłopotliwe nagłówki</a></li>
+    <li><a href="#operator">Operator @</a></li>
+    <li><a href="#optymalizacja">Optymalizacja Skryptów</a></li>
+    <li><a href="#bezpieczenstwo">Bezpieczeństwo</a></p>
+
+<ul>  
+    <li><a href="#register_globals">register_globals </a>*</li>
+    <li><a href="#safe_mode">safe_mode </a>*</li>
+    <li><a href="#bezpieczne_s">Tworzenie bezpiecznych skryptów</a></li>
+    <li><a href="#metoda_get">Dołączanie plików z paska adresu metodą <code>$_GET</code></a></li>
+    <li><a href="#shell">Zdalne uruchamianie programów</a></li>
+    <li><a href="#exeption">Obsługa wyjątków</a></li>
+    <li><a href="#klasy">Odwołanie do klasy, która nie istnieje</a></li>
+    <li><strong></strong><a href="#metody">Odwołanie do funkcji składowej(metody)</a></li>
+    <li><a href="#oop4">Kompatybilności z PHP4 w OOP</a></li>
+    <li><a href="#zero">Dzielenie przez zero</a></li>
+    <li>[!]<a href="#operator_por"> Operator porównania</a></li>
+    <li><a href="#zaokraglenia">Błędy zaokrągleń</a></li>
+    <li><a href="#filtre">Podstawowe funkcje odpowiedzialne za filtrowanie danych</a></li>
+</ul>  
+
+<p></li> <br />
+    <li><a href="#poziomy_rb">Poziomy raportowania błędów</a></li>
+</ul> <br />
+[!] - ważne</p>
+
+<ul>
+<li><ul><li>obecnie niezalecane stosowanie</li></ul></li>
+</ul>
+
+<h2><a id="formatowanie"></a><strong>Formatowanie kodu</strong></h2>  
+
+<p>Tworząc aplikację nigdy nie należy zapominać o wcięciach oraz formatowanie kodu, ponieważ zwiększa to jego czytelność, a co za tym idzie łatwość modyfikacji, czy też ułatwia znalezienia potencjalnego błędu. Do wyżej wymienionego formatowania kodu zaliczamy stosowanie zawsze nawiasów klamrowych, spacji w nawiasach zwykłych (przy parametrach funkcji), obok operatorów oraz za przecinkiem i średnikiem np. w pętli for. Spójrzmy na dwa przykładowe kody - pierwszy bez formatowania, oraz drugi, zawierający wyżej wymienione wskazówki:  </p>
+
+<h3><strong>Przykład 1</strong></h3>  
+
+<pre>&lt;?php
+
+    for($i=0;$i&lt;<a href='http://www.php.net/count'  target="_blank">count(</a>$users<a href='http://www.php.net/count'  target="_blank">)</a>;$i++)
+    {    
+    if($user[$i]['status'] == 'offline')       
+    return false;                  
+    }</pre>
+
+<h3><strong>Przykład 1a</strong></h3>  
+
+<pre>&lt;?php
+
+    for( $i = 0; $i &lt; <a href='http://www.php.net/count'  target="_blank">count( </a>$users<a href='http://www.php.net/count'  target="_blank"> )</a>; $i++ ) {
+
+        if( $user[$i]['status'] == 'offline' ) {
+
+            return false;     
+
+        }       
+
+    }</pre>
+
+<p>Od razu na pierwszy rzut oka widać, że kod z <strong>Przykładu 1a</strong> jest czytelniejszy.  </p>
+
+<h2><a id="komunikaty"></a><strong>Komunikaty błędów PHP</strong></h2>  
+
+<p>Przetworzenie skryptu PHP składa się z dwóch faz:  </p>
+
+<ul>  
+    <li>Kompilacji(Parsowania) - kod skryptu tłumaczony jest na wewnętrzny zestaw instrukcji interpretera.</li>
+    <li>Wykonywania - właściwe wykonanie skryptu.</li>
+</ul>  
+
+<p>Dzięki temu bez problemu można wyróżnić w której fazie należy szukać przyczyn naszego błędu, ponieważ każda z nich generuje nieco inne komunikaty.</p>
+
+<p>Przejdźmy jednak do strony praktycznej:  </p>
+
+<h3><a id="parse_e"></a><strong>Przykład 1</strong></h3>  
+
+<pre>&lt;?php
+
+    if( !<a href='http://www.php.net/empty'  target="_blank">empty( </a>$zmienna<a href='http://www.php.net/empty'  target="_blank"> )</a>
+    {
+
+       echo $zmienna;
+
+    }</pre>
+
+<p>Po jego sparsowaniu powinniśmy ujrzeć następujący komunikat:  </p>
+
+<pre>PHP <strong>Parse error</strong>:  syntax error, unexpected '{' in /home/[..]/index.php on line 4</pre>
+
+<p>Czyli jak widzimy jest to błąd składni powiązany z fazą kompilacji. PHP nie może skompilować skryptu, ponieważ w podanym pliku w linii 4 natrafił na nieprawidłową konstrukcję składniową. Nie zawsze jednak oznacza to, że błąd jest akurat w tej linii. Zazwyczaj powoduje go jakaś pomyłka nieco wyżej. Przyjrzyjmy się więc nieco bliżej komunikatowi. Mówi on, że PHP natknął się na niespodziewany nawias klamrowy w linii 4. Rzeczywiście, znajduje się on na swoim miejscu tak, jak być powinien, ale skoro według interpretera nie powinno go tu być, a nic więcej w tej linii nie mamy, zerknijmy wyżej: <code>if(!empty($zmienna)</code> - jak się okazało nie zamknęliśmy jednego z nawiasów, dlatego też interpreter PHP nie napotykając znaku <code>)</code>, dostał do nowej linii w której był <code>{</code> i zgłosił błąd. Po dodaniu brakującego nawiasu skrypt zaczyna poprawnie działać.  </p>
+
+<h3><strong>Przykład 1a</strong></h3>  
+
+<p>A co jeśli ten warunek zapiszemy w następujący sposób:  </p>
+
+<pre>&lt;?php
+
+    if( !<a href='http://www.php.net/empty'  target="_blank">empty( </a>$zmienna<a href='http://www.php.net/empty'  target="_blank"> )</a> {
+
+       echo $zmienna;
+
+    }</pre>
+
+<p>Po jego sparsowaniu ujrzymy również komunikat:  </p>
+
+<pre>PHP <strong>Parse error</strong>:  syntax error, unexpected '{' in /home/[..]/index.php on line 3</pre>
+
+<p>Zgodnie z zasadą opisaną w punkcie wyżej, zaglądamy do linijki nr 2, która jak widzimy jest pusta. Nie należny oczywiście siać od razu paniki, wystarczy również prześledzić nawiasy, dla ułatwienia w platformie Windows możemy skorzystać z programu <code>notepad++</code> , który po postawieniu kursora za nawiasem <code>(</code> podświetla nam od razu jego zamknięcie, co bez problemu ułatwia nam lokalizacje nawiasu, w którym go nie posiadamy.  </p>
+
+<h3><strong>Przykład 2</strong></h3>  
+
+<p>Po usunięciu powyższego błędu postanowiliśmy rozbudować nasz skrypt o wywołanie funkcji.  </p>
+
+<pre>&lt;?php 
+
+    if( !<a href='http://www.php.net/empty'  target="_blank">empty( </a>$zmienna<a href='http://www.php.net/empty'  target="_blank"> )</a> )
+    {
+
+       echo $zmienna
+
+       inicjujFunkcje();
+
+    }</pre>
+
+<p>Jednakże po uruchomieniu znów pojawił się komunikat błędu:  </p>
+
+<pre>PHP <strong>Parse error</strong>:  syntax error, unexpected T_STRING, expecting ',' or ';' in /home/[..]/index.php on line 8</pre>
+
+<p>Kompilatory aby ułatwić pracę zarówno sobie, jak i programiście grupują wszystkie identyczne funkcje np. zmienne, pod jedna wspólna nazwą - tokenem, dzięki temu tworzenie składni jest teraz o wiele prostsze. Bo jeżeli chcemy, aby w jakimś miejscu można było podać dowolną zmienną, używamy właśnie tokenu i kompilator już wie, co można w danym miejscu umieścić. Informacje o błędnym użyciu tokenu wyświetlane są w sposób jawny, o czym informuje nas owy tajemniczy napis <code>T<em>STRING</code> . Komunikat informuje nas również, że PHP natknął się na ciąg tekstowy, oczekując przecinka albo średnika. Spójrzmy linijkę wyżej - rzeczywiście, brakuje nam średnika. Dlaczego jednak komunikat zwraca ciąg tekstowy, skoro w 8 linijce jest funkcja? Kompilator po prostu nie dotarł jeszcze do występujących dalej nawiasów, więc wstępnie zaklasyfikował nazwę naszej funkcji jako tekst. Gdyby udało mu się mu tam dotrzeć i połączyłby z nią nawiasy, powstał by wtedy nowy token: <code>T</em>FUNCTION</code>.</p>
+
+<p><a id="fatal_e"></a>Gdy już poprawiliśmy usterkę i zainicjowaliśmy zmienną <code>$zmienna</code> jakąś wartością, okazało się, że nasz skrypt nadal nie działa. Tym razem mamy do czynienia z błędem innego typu:  </p>
+
+<pre>PHP <strong>Fatal error</strong>:  Call to undefined function inicjujFunkcje() in /home/[..]/index.php on line 8</pre>
+
+<p>Jest to oczywiście błąd wykonywania skryptu, w którym to PHP poinformował nas, że dotarł do wywołania funkcji <code>inicjujFunkcje()</code>, lecz taka nie istnieje. W tym momencie pozostało nam jedynie odkryć przyczynę tego stanu, być może nie dołączyliśmy jakiejś ważnej biblioteki lub po prostu jeszcze nie zdefiniowaliśmy naszej funkcji. Należy jednak nie zapominać o tym, że czasem, możemy przykryć fragment kodu i <em>pozornie</em> wyżej opisany problem może nie być widoczny. W tym wypadku można to zaobserwować, gdy nie zdefiniujemy zmiennej <code>$zmienna</code> , ponieważ nie zostanie wówczas spełniony warunek <code>if(!<a href='http://www.php.net/empty'  target="_blank">empty(</a>$zmienna<a href='http://www.php.net/empty'  target="_blank">)</a>)</code> , jednakże błąd nadal istnieje i ukaże się nam w momencie przypisania jakiejś wartości do zmiennej <code>$zmienna</code>.</p>
+
+<p>Komunikaty <strong>Fatal error</strong> pojawiają się zawsze wtedy, gdy w trakcie wykonywania wystąpi problem uniemożliwiający dalszą pracę interpreterowi. Przykładem jest podanie do instrukcji <code>require()</code> nazwy nieistniejącego pliku, wówczas dalsze wykonywanie skryptu zostaje przerwane. Jednakże użycie <code>include()</code> spowoduje "tylko" pokazanie się ostrzeżenia, a skrypt będzie wykonywany dalej.</p>
+
+<p>Innym rodzajem komunikatu o błędzie jest <strong>Warning</strong>, czyli ostrzeżenie. W odróżnieniu od <strong>Fatal error</strong> lub <strong>Parse error</strong>, <strong>Warning</strong> nie przerywa działania naszego skryptu. Przykładem pojawiania się tego komunikatu może być np. użycie pliku w kodowaniu UTF-8 wraz z BOM:  </p>
+
+<h3><a id="warning"></a><strong>Przykład 3</strong></h3>  
+
+<pre>&lt;?php
+
+    <a href='http://php.net/function.session-start'  target="_blank">session_start()</a>;</pre>
+
+<p>Komunikat błędu:  </p>
+
+<pre>PHP<b> Warning</b>:  session_start() [<a href='http://php.net/manual/en/function.session-start.php'  target="_blank">function.session-start</a>]: Cannot send session cache limiter - headers already sent (output started at /home/[..]/index.php:1) in <b>/home/[..]/index.php</b> on line <b>3</b></pre>
+
+<p>Nad rozwiązaniem powyższego problemu skupiliśmy się w poście <a title="UTF-8 bez BOM" href='http://comstudio.fwl.pl/blog/2013/03/utf-8-bez-bom/' >UTF-8 bez BOM</a> , do którego oczywiście serdecznie zapraszamy.</p>
+
+<p>Ostatnim typem komunikatów są tzw. <strong>Notices</strong>, czyli powiadomienia. Mają one niski priorytet i służą do informowania o miejscach, które <strong>potencjalnie</strong> mogą stanowić źródło problemu.  </p>
+
+<h3><a id="notice"></a><strong>Przykład 4</strong></h3>  
+
+<pre>&lt;?php
+
+    echo witaj;</pre>
+
+<p>Ujrzymy wówczas komunikat:  </p>
+
+<pre>PHP <strong>Notice</strong>:  Use of undefined constant witaj - assumed 'witaj' in /home/[..]/index.php on line 3</pre>
+
+<p>Skrypt widząc <code>witaj</code> nie poprzedzone znakiem <code>$</code> interpretuje tekst "witaj" jako stała, a ponieważ taka nie istnieje, informuje nas o tym w postaci ostrzeżenia. A co jeśli programiście wcale nie chodziło o to, żeby wstawić tam wartość stałej, tylko wyświetlić na ekranie napis <em>witaj</em>, wówczas uzupełniamy nasza linijkę o apostrofy <code>''</code>, należy jednak pamiętać o jednej ważnej rzeczy a mianowicie, kiedy stosować apostrof, a kiedy cudzysłów:  </p>
+
+<ul>  
+    <li>znak apostrofa <code>'</code> - sygnalizujemy PHP, że wewnątrz nie ma nic do interpretowania, przez co PHP wyświetla lub przypisuje string bez analizy,</li>
+    <li>znak cudzysłowie <code>"</code> - nakazuje PHP sprawdzenie czy wewnątrz łańcucha nie znajduje się zmienna lub funkcja, którą należy wykonać</li>
+</ul>  
+
+<h4>Przykład</h4>  
+
+<ul>  
+    <li>Metoda 1(najszybsza, zalecana)</li>
+</ul>  
+
+<pre>$zmienna = 'Użytkownik:'.$login;</pre>
+
+<ul>  
+    <li>Metoda 2(niezalecana)</li>
+</ul>  
+
+<pre>$zmienna = "Użytkownik: $login";</pre>
+
+<ul>  
+    <li>Metoda 3(niezalecana)</li>
+</ul>  
+
+<pre>$zmienna = "Użytkownik:".$login;</pre>
+
+<h3><strong>Przykład 4.1</strong></h3>  
+
+<p>Osobnego rozpatrzenia wymagają tablice asocjacyjne. Musimy pamiętać, że nazwy kluczy takich tablic zapisujemy w cudzysłowach <code>""</code> lub apostrofach <code>''</code> :  </p>
+
+<pre>&lt;?php
+
+    $<a href='http://www.php.net/language.types.array'  target="_blank">array["</a>klucz<a href='http://www.php.net/language.types.array'  target="_blank">"]</a> = 1; //dobrze
+    $<a href='http://www.php.net/language.types.array'  target="_blank">array['</a>klucz2<a href='http://www.php.net/language.types.array'  target="_blank">']</a> = 2; // dobrze
+    $<a href='http://www.php.net/language.types.array'  target="_blank">array[</a>klucz3<a href='http://www.php.net/language.types.array'  target="_blank">]</a> = 3; // źle</pre>
+
+<p>Bo w tym wypadku również zostaniemy ostrzeżeni:  </p>
+
+<pre>PHP <strong>Notice</strong>:  Use of undefined constant klucz3 - assumed 'klucz3' in /home/[..]/index.php on line 5</pre>
+
+<blockquote>Należy wiec <strong>pamiętać</strong>, żeby tak pisać nasze skrypty, aby <strong>nie generowały</strong> one tego typu <strong>ostrzeżeń</strong>, z kilku ważnych powodów:  
+<ul>  
+    <li>W wypadku gdy nasz skrypt <strong>rozwijany</strong> będzie również <strong>przez innych</strong> i <strong>ustawiony</strong> zostanie <strong>wysoki poziom raportowania błędów</strong>, właściwa treść zginie w <strong>setkach</strong> powiadomień,</li>
+    <li><strong>Wiele serwerów</strong>, pomimo ryzyka związanego z bezpieczeństwem, pozostawia <strong>domyślnie włączony</strong> wysoki poziom raportowania błędów,</li>
+    <li>Brak komunikatów jest <strong>wyrazem dbałości</strong> o sytuacje wyjątkowe oraz daje możliwość ich obsługi.</li>
+</ul>  
+</blockquote>  
+
+<p>Dobrym nawykiem jest używanie komendy <a href='http://www.php.net/isset'  target="_blank"><b>isset()</b></a> do sprawdzania, czy wymagane w danym fragmencie zmienne istnieją, a także <strong>inicjowanie</strong> ich przed pierwszym użyciem <strong>domyślną wartością</strong>.  </p>
+
+<h2><a id="biala_s"></a><strong>Biała strona</strong></h2>  
+
+<p>Często zdarza się, że wykonanie skryptu skutkuje pojawieniem się białej strony bez żadnych komunikatów informujących o powstaniu błędu. Spowodowane jest to niewystarczającym <a href="#poziomy_rb">poziomem raportowania błędów</a>.  </p>
+
+<h2><a id="znak_r"></a><strong>Niepoprawne użycie znaku równości <code>=</code></strong></h2>  
+
+<h3><strong>Przykład 1</strong></h3>  
+
+<pre>&lt;?php 
+
+    $zmienna = 2;
+    if( $zmienna = 1 ) {
+
+        echo '1';
+
+    } else {
+
+        echo '2';
+
+    }</pre>
+
+<p>Powyższy kod zawsze wyświetli <strong>1</strong>, ponieważ w instrukcji warunkowej użyto operatora przypisania <code>=</code> , a nie porównania <code>==</code>. Należy jednak <strong>pamiętać</strong> o tym, że porównując dwie zmienne typu <strong>string</strong> należny zastosować operator porównania <code>===</code>.  </p>
+
+<h2><strong>Brak znaku końca <code>}</code></strong></h2>  
+
+<p>Często szczególnie początkującym programistą zdarza się zapomnieć postawić znaku } na końcu danego bloku instrukcji, o czym jak zwykle zostaniemy poinformowani w wyniku komunikatu:  </p>
+
+<pre>PHP <strong>Parse error</strong>:  syntax error, unexpected end of file in /home/[...]/index.php on line X</pre>
+
+<h3><strong> Przykład 1</strong></h3>  
+
+<pre>&lt;?php
+
+if($b &lt; $a) { if($a &gt; 10)
+{
+echo 'dobrze';
+}
+elseif($a &lt; 5 )
+{ 
+echo 'zle';        
+}
+else
+echo 'inne';</pre>
+
+<p>Jest to przeważnie wina nie dbania o formatowanie naszego kodu, co widać na przykładnie zaprezentowanym powyżej. Na pierwszy rzut oka trudno zauważyć gdzie tkwi nasz błąd, na szczęście Parser PHP informuje nas w której linijce spodziewał się znaku końca czyli naszego <code>}</code>, dlatego pamiętajmy zawsze o <a href="#formatowanie"><strong>formatowaniu naszego kod</strong></a>!  </p>
+
+<h3><strong>Przykład 1a</strong></h3>  
+
+<pre>&lt;?php
+
+    if( $b &lt; $a ) { 
+
+        if( $a &gt; 10 ) {
+
+            echo 'dobrze';
+
+        } elseif( $a &lt; 5 ) { 
+
+            echo 'zle';
+
+        } else
+            echo 'inne';
+
+    }</pre>
+
+<h2><strong><a id="naglowki"></a>Kłopotliwe nagłówki <a href='http://www.php.net/header'  target="_blank"><code>header()</code> </a></strong></h2>  
+
+<p>Często podczas wysyłania nagłówków do przeglądarki, np. w takim skrypcie:  </p>
+
+<h3><strong>Przykład 1</strong></h3>  
+
+<pre>&lt;?php
+
+    echo 'To są dane wysłane przed stworzeniem nagłówka';
+
+    if( !$isAdmin ) {
+
+        <a href='http://php.net/header'  target="_blank">header( </a>'WWW-Authenticate: Basic realm="Admin "'<a href='http://php.net/header'  target="_blank"> )</a>;
+        <a href='http://php.net/header'  target="_blank">header( </a>'HTTP/1.0 401 Unauthorized'<a href='http://php.net/header'  target="_blank"> )</a>;
+        echo 'Zły login/hasło.';
+        <a href='http://php.net/exit'  target="_blank">exit</a>;
+
+    } else {
+
+        echo 'Dobry login/hasło';
+    }</pre>
+
+<p>otrzymujemy następujące komunikaty:  </p>
+
+<pre>PHP <strong>Warning</strong>:  Cannot modify header information - headers already sent by (output started at /home/[..]/index.php:3) in /home/[..]/index.php on line 7
+PHP <strong>Warning</strong>:  Cannot modify header information - headers already sent by (output started at /home/[..]/index.php:3) in /home/[..]/index.php on line 8</pre>
+
+<p>Oznacza to, że jakieś informacje zostały już wysłane do przeglądarki (echo, print, spacja przed <code>&lt;?php</code>, czy nawet nasz <a title="UTF-8 bez BOM" href='http://comstudio.fwl.pl/blog/2013/03/utf-8-bez-bom/' >BOM</a> ). Rozwiązaniem problemu jest skasowanie wszystkiego przed <code>&lt;?php</code>, lub wpisanie na początku pliku funkcji uruchamiającej buforowanie: <a href='http://www.php.net/ob_start'  target="_blank"><code>ob<em>start()</code></a>. Gdy chcemy opróżnić bufor wywołujemy funkcję <a href='http://www.php.net/ob_flush'  target="_blank"><code>ob</em>flush()</code></a> (bez kończenia buforowania), lub <a href='http://www.php.net/ob_end_flush'  target="_blank"><code>ob<em>end</em>flush()</code></a> (kończy buforowanie):  </p>
+
+<pre>&lt;?php
+<a href='http://www.php.net/ob_start' >ob_start()</a>; 
+
+    echo 'To są dane wysłane przed stworzeniem nagłówka';
+
+    if( !$isAdmin ) {
+
+        <a href='http://www.php.net/header'  target="_blank">header( </a>'WWW-Authenticate: Basic realm="Admin "'<a href='http://www.php.net/header'  target="_blank"> )</a>;
+        <a href='http://www.php.net/header'  target="_blank">header( </a>'HTTP/1.0 401 Unauthorized'<a href='http://www.php.net/header'  target="_blank"> )</a>;
+        echo 'Zły login/hasło.';
+        <a href='http://www.php.net/exit'  target="_blank">exit</a>;
+
+    } else {
+
+        echo 'Dobry login/hasło';
+    }
+
+<a href='http://www.php.net/ob_end_flush'  target="_blank">ob_end_flush()</a>;</pre>
+
+<h2><a id="operator"></a><strong>Kilka słów o operatorze @</strong></h2>  
+
+<p>Jeżeli dowolne wyrażenie PHP poprzedzimy znakiem <b>@</b>, interpreter nie wyświetli żadnego komunikatu błędu, nawet jeżeli takowy istnieje. Nie oznacza to wcale, że błąd ten nagle znika, po prostu nie jesteśmy o nim informowani, dlatego też należy bardzo rozważnie postępować z jego użyciem. Operator <b>@</b> przydaje się głównie przy funkcjach do komunikacji z zewnętrznymi źródłami danych np. plikami, ponieważ gdy PHP nie wykryje żądanego pliku, wówczas nie zostanie wygenerowany określony wynik, a także ukaże się nam komunikat <b>Warning</b>, co jest oczywiście zjawiskiem niepożądanym.  </p>
+
+<h3><strong>Przykład 1</strong></h3>  
+
+<pre>&lt;?php
+
+    echo <a href='http://www.php.net/file_get_contents'  target="_blank">file_get_contents( </a>'plik.txt'<a href='http://www.php.net/file_get_contents'  target="_blank"> )</a>;</pre>
+
+<p>Kiedy <code>plik.txt</code> nie będzie istnieć, interpreter wygeneruje stosowny komunikat, którego w formie <b>Warning`</b>a oczywiście oglądać nie chcemy. Dlatego zanim wczytamy jego zawartość, wcześniej sprawdzimy drugą funkcją istnienie tego pliku.  </p>
+
+<h3><strong>Przykład 1a</strong></h3>  
+
+<pre>&lt;?php 
+
+    if( <a href='http://www.php.net/file_exists'  target="_blank">file_exists( </a>'plik.txt'<a href='http://www.php.net/file_exists'  target="_blank"> )</a> ) {
+
+            echo <a href='http://www.php.net/file_get_contents'  target="_blank">file_get_contents( </a>'plik.txt'<a href='http://www.php.net/file_get_contents'  target="_blank"> )</a>;
+
+    } else {
+
+            echo 'Podany plik nie istnieje.';
+
+    }</pre>
+
+<p>Lecz pojawia się nam tu jak wiadomo problem wydajności. Odczyt czegokolwiek z twardego dysku stanowi duży narzut czasowy dla oprogramowania, dlatego powinniśmy się starać wykonywać jak najmniej takich operacji. Wiemy z dokumentacji, że samo <code>file<em>get</em>contents()</code> zwraca nam <b>false</b>, jeśli plik nie istnieje, więc przeszkadza nam tu jedynie pojawiające się ostrzeżenie. Dlatego właśnie skorzystamy z @, aby się go pozbyć:  </p>
+
+<pre>&lt;?php
+
+    $_file = @<a href='http://www.php.net/file_get_contents'  target="_blank">file_get_contents( </a>'plik.txt'<a href='http://www.php.net/file_get_contents'  target="_blank"> )</a>;
+
+    if( $_file !== <a href='http://php.net/language.types.boolean.php'  target="_blank">FALSE</a> ) {
+
+            echo  $_file;
+
+    } else {
+
+            echo 'Podany plik nie istnieje.';
+
+    }</pre>
+
+<p>Jak widać wynik funkcji zapisaliśmy w zmiennej, ponieważ jest on nam potrzebny w paru miejscach. Aby nie dostawać komunikatu <strong>Warning</strong>, poprzedziliśmy wywołanie funkcji operatorem @. <br />
+Istnieje również możliwość zapisania tego w podany poniżej sposób, jednakże przy założeniu, że w poleceniu <code>echo</code> tylko wywołaliśmy wybrany przez nas zestaw instrukcji w tym wypadku: <a href='http://www.php.net/file_get_contents'  target="_blank"><code>file<em>get</em>contents( </code></a><code>'plik.txt'</code><a href='http://www.php.net/file_get_contents'  target="_blank"><code> )</code></a> :  </p>
+
+<pre>&lt;?php
+
+    @echo <a href='http://www.php.net/file_get_contents'  target="_blank">file_get_contents( </a>'plik.txt'<a href='http://www.php.net/file_get_contents'  target="_blank"> )</a> or <a href='http://www.php.net/die'  target="_blank">die( </a>'Podany plik nie istnieje.'<a href='http://www.php.net/die'  target="_blank"> )</a>;</pre>
+
+<blockquote>Zanim użyjemy operatora <b>@</b>, najpierw zastanówmy się czy aby na pewno jest on w tym miejscu do czegoś konkretnego potrzebny. Jego przetwarzanie powoduje znaczny spadek wydajności i jedynie pozornie rozwiązuje problemy, dlatego też do dobrych praktyk programistycznych należy unikanie jego stosowania.</blockquote>  
+<h2><a id="optymalizacja"></a><strong>Optymalizowanie skryptów</strong></h2>  
+Optymalizacja skryptów to bardzo ważna i często pomijana przez programistów kwestia. Może się wydawać, że zoptymalizowanie programu z 0.020 do 0.005 sekundy to nic, ale przy 2000 odwiedzin daje to widoczne zwiększenie szybkości. Przyjrzyjmy się więc poniższej pętli:  
+
+
+<pre>&lt;?php
+
+    for( $i=0; $i &lt; <a href='http://www.php.net/count'  target="_blank">count( </a>$users<a href='http://www.php.net/count'  target="_blank"> )</a>;$i++ ) {
+
+        if( $user[$i]['status'] == 'offline' ) {
+
+             return false;
+
+        }
+     }</pre>
+Po przeanalizowaniu pętli można stwierdzić, że wraz z każdą iteracją wykonywana jest funkcja <code>count()</code>, pomimo iż możliwe jest wykonanie jej tylko raz:  
+
+
+<pre>&lt;?php
+
+    for( $i=0, $liczba_userow = <a href='http://www.php.net/count'  target="_blank">count( </a>$users<a href='http://www.php.net/count'  target="_blank"> )</a>; $i &lt; $liczba_userow ;$i++ ) {
+
+        if( $user[$i]['status'] == 'offline' ) {
+
+            return false;
+        }
+    }</pre>
+<h3><strong>Przykład 2</strong></h3>  
+Załóżmy, że programista tworząc swój skrypt chcę wydrukować na ekranie <code>n (10)</code> razy jakiś ciąg znaków <code>*</code> , do czego użył pętli zaprezentowanej poniżej:  
+
+
+<pre>&lt;?php
+
+    $n = 10;
+
+    for( $i=0; $i &lt; $n; $i-- ){
+
+        echo '*';
+
+    }</pre>
+Jednak przy próbie uruchomienia okazało się, że nasz ciąg znakowy <code>*</code> powielany jest w nieskończoność aż kompilator zwrócił nam komunikat(zależne od ustawień serwera):  
+
+
+<pre>PHP Timed out <b>Fatal error</b>:  Maximum execution time of 30 seconds exceeded in <b>/home/[..]/index.php</b> on line <b>8</b></pre>
+Jak widać podczas uruchomienia naszego skryptu serwer wygenerował błąd, ponieważ przekroczyliśmy dopuszczały czas wykonywania naszego skryptu. Przyjrzyjmy się wiec gdzie zrobiliśmy błąd. Bez trudu można zauważyć, że programista przypadkiem wraz z każdym skokiem pętli zmniejszał licznik <code>i</code>, zamiast go zwiększać co oczywiście jest nie dopuszczalne w naszym przypadku, ponieważ wtedy nigdy nie osiągniemy naszego<code> n (10)</code>. Nanosimy poprawkę i otrzymujemy:  
+
+
+<pre>&lt;?php
+
+    $n = 10;
+
+    for( $i=0; $i &lt; $n; $i++ ){
+
+        echo '*';
+
+    }</pre>
+Jak widać tym razem uzyskaliśmy zamierzony efekt.  
+<blockquote><strong>Pamiętaj!</strong>  
+Zawsze należy starać się tworzyć skrypty tak, żeby czas wykonywania skryptu nie został nigdy przekroczony, pomimo iż bez problemu można zmodyfikować długość tego czasu lub nawet usunąć ten limit poprzez funkcje <code>ini_set('max_execution_time', 0);</code> jednakże takie operacje nie są zalecane i można je stosować tylko w wyjątkowych sytuacjach, kiedy pomimo próby optymalizacji naszego skryptu, problem nadal się pojawia.</blockquote>  
+&nbsp;
+<h2><a id="bezpieczenstwo"></a><strong>Bezpieczeństwo</strong></h2>  
+<span id="intertext1">Najczęściej konfigurację rozpoczyna się od parametru <a id="register_globals"></a><code></code><a href='http://php.net/security.globals.php'  target="_blank"><code>register_globals</code></a>. Zaleca się ustawienie tej opcji na <strong>Off</strong>. W przeciwnym razie wszystkie zmienne wysyłane do skryptu tworzone będą jako globalne, co może spowodować nadpisywanie wcześniej ustalonych wartości zmiennych o takich samych nazwach. Tym samym możliwe staje się na przykład oszukiwanie mechanizmów autoryzacji. Dlatego od wersji 4.2 wartością domyślną tej opcji jest <strong>Off</strong>, co sprawia, że nie mogą być tworzone żadne dodatkowe zmienne globalne oprócz zdefiniowanych bezpośrednio w skrypcie. W wersji PHP 5.3.0 uznano stosowanie tego parametru za metodę przestarzała, a w wersji PHP 5.4.0 parametr ten został usunięty.</span>
+
+Przy wyłączonej opcji <a href='http://php.net/security.globals.php'  target="_blank"><code>register_globals</code></a> do przekazywanej zmiennej należy się odwoływać za pomocą specjalnych tablic: <code>$<a href='http://www.php.net/reserved.variables.post.php'  target="_blank">_POST[</a>'zmienna'<a href='http://www.php.net/reserved.variables.post.php'  target="_blank">]</a></code> i <code>$<a href='http://www.php.net/reserved.variables.get.php'  target="_blank">_GET[</a>'zmienna'<a href='http://www.php.net/reserved.variables.get.php'  target="_blank">] </a></code>lub <code>$<a href='http://www.php.net/reserved.variables.post.php'  target="_blank">HTTP_POST_VARS[</a>'zmienna'<a href='http://www.php.net/reserved.variables.post.php'  target="_blank">]</a></code> i <code>$<a href='http://www.php.net/reserved.variables.get.php'  target="_blank">HTTP_GET_VARS[</a>'zmienna'<a href='http://www.php.net/reserved.variables.get.php'  target="_blank">]</a></code> , jednakże drugi sposób jest już uważany za przestarzały.
+
+Do niedawna drugą ważną funkcją było <a id="safe_mode"></a><code></code><a href='http://php.net/ini.sect.safe-mode.php'  target="_blank"><code>safe_mode</code></a> , które ograniczało możliwości uruchamiania poleceń systemowych z poziomu aplikacji PHP oraz ograniczało dostępu do zmiennych środowiskowych, jednak wraz z wersją 5.4.0 podobnie jak w wypadku <a href='http://php.net/security.globals.php'  target="_blank"><code>register_globals</code></a> parametr ten został usunięty.  
+<h3><a id="bezpieczne_s"></a><strong>Tworzenie bezpiecznych skryptów</strong></h3>  
+Następnym ważnym zagadnieniem związanym z bezpieczeństwem PHP jest sposób pisania skryptów. Programista powinien zawsze przewidywać następstwa niezgodnego z oczekiwaniami. Pisząc kod, nie można skupiać uwagi tylko i wyłącznie na widocznych efektach działania skryptów, ale należy również wykonać dokładną analizę rozwoju zdarzeń w sytuacjach awaryjnych, np. gdy nie będzie działała baza MySQL lub gdy w parametrze przekazywanym metodą <code>$<a href='http://www.php.net/reserved.variables.get.php'  target="_blank">_GET</a></code> zabraknie jednej z przewidzianych wartości, czy też okaże się ona błędna.  
+<h3><strong>Przykład 1</strong></h3>  
+Załóżmy, że na nasza strona internetowa umożliwia użytkownikom zamieszczanie ogłoszeń, których treść wpisywana jest przy użyciu formularza. Po kliknięciu Wyślij wpisana treść jest przekazywana do skryptu <code>dodaj.php</code> za pomocą tablicy <code>$<a href='http://www.php.net/reserved.variables.post.php'  target="_blank">_POST[</a>'tresc'<a href='http://www.php.net/reserved.variables.post.php'  target="_blank">]</a></code>. Zadaniem skryptu jest zapisanie treści ogłoszenia w bazie danych oraz wyświetlenie jej jednocześnie na stronie. Jeżeli użytkownik wpisze w formularzu oprócz treści ogłoszenia również instrukcje formatujące HTML:  
+
+
+<pre>&lt;b&gt;Moja treść jest pogrubiona&lt;/b&gt;</pre>
+to mimo globalnych ustaleń w kwestii wyglądu strony treść wprowadzona przez tego użytkownika będzie wyświetlona <strong>pogrubioną czcionką</strong>. Jest to przykład banalny, jednakże poza nieoczekiwaną zmianą związaną z wyglądem strony nie przynosi większych szkód. Ale wystarczy w treści formularza wpisać <strong>skrypt PHP</strong> lub <strong>JavaScript(XSS)</strong>, aby rezultaty działania niezabezpieczonego pliku <code>dodaj.php</code> miały znacznie poważniejsze konsekwencje.  
+
+
+<pre>&lt;?php
+
+    $tresc = $<a href='http://www.php.net/reserved.variables.post.php'  target="_blank">_POST[</a>'tresc'<a href='http://www.php.net/reserved.variables.post.php'  target="_blank">]</a>;
+
+    // [...]  zapis do bazy danych
+
+    while( $row = <a href='http://php.net/function.mysql-fetch-assoc.php'  target="_blank">mysql_fetch_assoc( </a>$sql<a href='http://php.net/function.mysql-fetch-assoc.php'  target="_blank"> )</a> ){
+
+         echo $row['tresc'];
+
+    }</pre>
+<h4>Jak się ustrzec przed tego typu problemami?</h4>  
+Możliwości jest wiele. Najprostsze rozwiązanie to wykorzystanie specjalnych funkcji PHP:  
+<ul>  
+    <li><a href='http://php.net/function.htmlspecialchars.php'  target="_blank">htmlspecialchars()</a> - funkcja zapisuje znaki specjalne HTML (np. &lt;) za pomocą odpowiednich symboli, dzięki czemu nie są one interpretowane, lecz wyświetlane jak zwykły tekst strony,</li>
+    <li><span id="intertext1"><a href='http://php.net/function.strip-tags.php'  target="_blank">strip_tags()</a> - funkcja całkowicie usuwa znaczniki HTML.</span></li>
+    <li><span id="intertext1"><a href='http://php.net/function.trim.php'  target="_blank"> trim()</a> - funkcja usuwa niedrukowane znaki (spacje, tabulacje) na początku i końcu łańcucha</span></li>
+</ul>  
+<h4>Przykład 1a</h4>  
+
+
+<pre>$tresc = <a href='http://php.net/function.htmlspecialchars.php'  target="_blank">htmlspecialchars(</a> $<a href='http://www.php.net/reserved.variables.post.php'  target="_blank">_POST[</a>'tresc'<a href='http://www.php.net/reserved.variables.post.php'  target="_blank">]</a> <a href='http://php.net/function.htmlspecialchars.php'  target="_blank">)</a>;</pre>
+lub  
+
+
+<pre>$tresc = <a href='http://php.net/function.strip-tags.php'  target="_blank">strip_tags(</a> $<a href='http://www.php.net/reserved.variables.post.php'  target="_blank">_POST[</a>'tresc'<a href='http://www.php.net/reserved.variables.post.php'  target="_blank">]</a> <a href='http://php.net/function.strip-tags.php'  target="_blank">)</a>;</pre>
+oraz  
+
+
+<pre>$tresc = <a href='http://php.net/function.trim.php'  target="_blank">trim(</a> $<a href='http://www.php.net/reserved.variables.post.php'  target="_blank">_POST[</a>'tresc'<a href='http://www.php.net/reserved.variables.post.php'  target="_blank">]</a> <a href='http://php.net/function.trim.php'  target="_blank">)</a>;</pre>
+<h4>Przykład 2</h4>  
+<span id="intertext1">Analizując dalej działanie przykładowego skryptu <code>dodaj.php</code>, zauważamy kolejne, potencjalne problemy. Mianowicie jeżeli w formularzu zostanie wpisany tekst zawierający np. cudzysłowy, to próba wstawienia takiej niesformatowanej wartości do bazy danych może zakończyć się w najlepszym razie niepowodzeniem. W najgorszym wypadku, gdy użytkownik formularza świadomie skonstruuje odpowiednią kolejność znaków specjalnych, może nie tylko wstawić do bazy nowe lub obejrzeć istniejące dane, ale również je zniszczyć. To działanie nazywa się włamaniem typu <strong>SQL injection</strong>, o którym napiszemy w kolejnym poście na naszym blogu<strong></strong>. </span>  
+<h3><a id="metoda_get"></a><strong>Dołączanie plików z paska adresu metodą <code>$_GET</code></strong></h3>  
+Bardzo często początkujący programiści dołączają podstrony do głównego szablonu przez pasek adresu wpisując np. <code>http://mojserwer.pl/index.php?page=omnie.php</code> . Zazwyczaj kod wygląda wtedy następująco:  
+<h3><strong>Przykład 1</strong></h3>  
+
+
+<pre>&lt;?php
+
+    // [...]
+
+    <a href='http://php.net/function.include.php'  target="_blank">include( </a>$<a href='http://www.php.net/reserved.variables.get.php'  target="_blank">_GET[</a>'page'<a href='http://www.php.net/reserved.variables.get.php'  target="_blank">]</a><a href='http://php.net/function.include.php'  target="_blank"> )</a>;
+
+    // [...]</pre>
+Musimy jednak mieć świadomość, że potencjalny kraker może w takim wypadku wpisać: <code>http://mojserwer.pl/index.php?page=http://kraker.pl/hack.php</code> i jego plik <code>hack.php</code> wykona się tak, jakby był na serwerze <code>http://mojserwer.pl/</code>. Prawidłowy, odporny na tego typu manipulacje kod wygląda więc następująco:  
+<h3><strong>Przykład 1a</strong></h3>  
+
+
+<pre>&lt;?php
+
+    // [...]
+
+    if( <a href='http://php.net/function.isset.php'  target="_blank">isset( </a>$<a href='http://www.php.net/reserved.variables.get.php'  target="_blank">_GET[</a>'page'<a href='http://www.php.net/reserved.variables.get.php'  target="_blank">]</a><a href='http://php.net/function.isset.php'  target="_blank"> )</a> &amp;&amp; <a href='http://php.net/function.file-exists.php'  target="_blank">file_exists( </a>$<a href='http://www.php.net/reserved.variables.get.php'  target="_blank">_GET[</a>'page'<a href='http://www.php.net/reserved.variables.get.php'  target="_blank">]</a><a href='http://php.net/function.file-exists.php'  target="_blank"> )</a> ) {
+
+         <a href='http://php.net/function.include.php'  target="_blank">include( </a><a href='http://php.net/function.basename.php'  target="_blank">basename( </a>$<a href='http://www.php.net/reserved.variables.get.php'  target="_blank">_GET[</a>'page'<a href='http://www.php.net/reserved.variables.get.php'  target="_blank">]</a> . '.php'<a href='http://php.net/function.basename.php'  target="_blank"> )</a><a href='http://php.net/function.include.php'  target="_blank"> )</a>;
+
+     }
+
+    // [...]</pre>
+<blockquote>Jednakże należy zauważyć, że w tym wypadku w pasku adresu nie podajemy rozszerzenia, a przykładowy adres wygląda następująco: <code>http://mojserwer.pl/index.php?page=omnie</code> . Taki kod wygląda już o wiele ładniej, jednakże <strong>nie jest</strong> on jeszcze <strong>w pełni bezpieczny</strong> dlatego też <strong>nie zaleca się</strong> stosowania tego sposób. W tym momencie warto zapoznać się z <em>mod_rewrite</em>, który chociaż działa na podobnej zasadzie okazuje się być bardziej <strong>bezpieczny</strong>.</blockquote>  
+<h3><a id="shell"></a><strong><span id="intertext1"><span class="subtytul">Zdalne uruchamianie programów</span></span></strong></h3>  
+<span id="intertext1">Niezabezpieczone skrypty mogą również pozwalać nieuprawnionym osobom na wykonywanie programów na serwerze, np. jeśli przekazany za pośrednictwem zmiennej ciąg znaków zostanie użyty jako parametr polecenia <code>shell_exec()</code>. Jeżeli zamiast spodziewanych wartości przekazany zostanie ciąg poleceń systemu Unix, wyniki działania skryptu mogą być całkiem odmienne od założonych. </span>  
+<h3><strong>Przykład 1</strong></h3>  
+
+
+<pre><span id="intertext1">&lt;?php
+
+   $wykonaj = <a href='http://php.net/function.shell-exec.php'  target="_blank">shell_exec( </a>"cat <a href='http://php.net/reserved.variables.post.php'  target="_blank">$_POST[</a>'plik'<a href='http://php.net/reserved.variables.post.php'  target="_blank">]</a>"<a href='http://php.net/function.shell-exec.php'  target="_blank"> )</a>;
+</span></pre>
+Jeżeli zmienna plik zamiast spodziewanej nazwy pliku tekstowego, którego zawartość ma zostać wyświetlona, będzie zawierać pochodzący z formularza ciąg znaków:  
+
+
+<pre>plik.txt \ ls -l</pre>
+to oprócz wyświetlenia na ekranie zawartości podanego pliku otrzymamy listę plików w danym katalogu.
+
+<span id="intertext1">Dlatego zanim </span><span id="intertext1">użyjemy </span><span id="intertext1">przekazywanego ciąg znaków jako parametru poleceń typu <a href='http://www.php.net/function.exec.php'  target="_blank"><code>exec()</code></a> , <a href='http://php.net/function.shell-exec.php'  target="_blank"><code>shell_exec()</code></a> bądź też <a href='http://php.net/function.system.php'  target="_blank"><code>system()</code></a> , koniecznie musimy poddać go działaniu funkcji <code><strong>escapeshellcmd()</strong></code> , która doda znaki <code>\</code> przed wszelkimi meta-znakami, takimi jak: <code>\ + ? [ ] ^ $ ( )</code> co pozwoli uniknąć opisanych powyżej niebezpiecznych sytuacji.  
+</span>  
+<h3><a id="exeption"></a><strong>Obsługa wyjątków</strong></h3>  
+W większych projektach zawsze powinno się uwzględnić klasę/funkcję do obsługi błędów. Nie można sobie pozwolić na klasyczne komunikaty, ponieważ po pierwsze są one nieestetyczne, a po drugie mogą dostarczyć cennych informacji dla krakerów. Przykładowa funkcja dla obsługi błędów MySQL może wyglądać tak:  
+<h3><strong>Przykład 1</strong></h3>  
+
+
+<pre>&lt;?php
+
+    function catch_mysql_error( $line )
+    {
+         $errFile = <a href='http://php.net/function.fopen.php'  target="_blank">fopen( </a>'mysql_errors.txt', 'a'<a href='http://php.net/function.fopen.php'  target="_blank"> )</a>;
+         $strToWrite = <a href='http://www.php.net/function.date.php'  target="_blank">date( </a>'d.m.Y H:i'<a href='http://www.php.net/function.date.php'  target="_blank"> )</a> . '::' . <a href='http://php.net/language.constants.predefined.php'  target="_blank">__FILE__</a> . '::' . $line . '::' . <a href='http://php.net/function.mysql-errno.php'  target="_blank">mysql_errno()</a> . '::' . <a href='http://php.net/function.mysql-error.php'  target="_blank">mysql_error()</a> . '::' . <a href='http://php.net/reserved.variables.server.php'  target="_blank">$_SERVER[</a>"REMOTE_ADDR"<a href='http://php.net/reserved.variables.server.php'  target="_blank">]</a> . '::' . <a href='http://php.net/reserved.variables.server.php'  target="_blank">$_SERVER[</a>"REQUEST_URI"<a href='http://php.net/reserved.variables.server.php'  target="_blank">]</a> . "\n";
+         <a href='http://www.php.net/function.fwrite.php'  target="_blank">fwrite( </a>$errFile, $strToWrite<a href='http://www.php.net/function.fwrite.php'  target="_blank"> )</a>;
+         <a href='http://www.php.net/function.fclose.php'  target="_blank">fclose( </a>$errFile<a href='http://www.php.net/function.fclose.php'  target="_blank"> )</a>;
+         echo 'Wystąpił błąd podczas pracy z bazą danych, i został on zgłoszony do administratora. Przepraszamy.';
+
+    }</pre>
+Przykładowe odwołanie się do funkcji wygląda następująco:  
+<h3><strong>Przykład 1a</strong></h3>  
+
+
+<pre>$getQuery = @<a href='http://php.net/function.mysql-query.php'  target="_blank">mysql_query( </a>'SELECT * FROM tabela'<a href='http://php.net/function.mysql-query.php'  target="_blank"> )</a> OR <a href='http://www.php.net/function.exit.php'  target="_blank">exit(</a> catch_mysql_error( <a href='http://php.net/language.constants.predefined.php'  target="_blank">__LINE__</a> ) <a href='http://www.php.net/function.exit.php'  target="_blank">)</a>;</pre>
+W takiej funkcji, wszystkie potrzebne dane, czyli data wraz z godziną, nazwa pliku, linia, kod błędu, treść błędu oraz numer IP (przydatny w przypadku wykrycia próby włamania) są zapisywane do pliku, a użytkownikowi wyświetlany jest stosowny komunikat.  
+<h3><a id="klasy"></a><strong>Odwołanie do klasy, która nie istnieje</strong></h3>  
+Czasem gdy tworzymy nowy obiekt danej klasy może się zdarzyć w wyniku naszego roztargnienia odwołamy się do klasy, która nie istnieje, o czym oczywiście zostaniemy poinformowani w postaci komunikatu:  
+
+
+<pre>PHP <strong>Fatal error</strong>:  Class 'NaszaKlasa' not found in /home/[...]/index.php on line X</pre>
+Błąd ten może mieć rożne źródła:  
+<ul>  
+    <li>wynik naszej literówki np.</li>
+</ul>  
+
+
+<pre>&lt;?php
+    <a href='http://www.php.net/language.oop5.basic.php'  target="_blank">class</a> Hello{
+
+        <a href='http://www.php.net/language.oop5.visibility.php'  target="_blank">private</a> $hello;
+        <a href='http://www.php.net/language.oop5.visibility.php'  target="_blank">public</a> function sayHello(){
+
+           <a href='http://php.net/function.return.php'  target="_blank">return</a> $this-&gt;hello = "Hello World";
+
+        }
+    }
+
+    $obiekt = <a href='http://www.php.net/language.oop5.basic.php'  target="_blank">new</a> Hallo; // gdzie ewidentnie widać, że powinno być Hello
+    echo $obiekt-&gt;sayHello();</pre>
+<ul>  
+    <li>odwołanie do klasy zapisanej mała literą,</li>
+    <li>odwołanie się do do istniejącej klasy, jednakże nie zaimplementowanej do naszego pliku np. w wyniku nie uwzględnienia jej w naszej przestrzeni nazw <strong><a href='http://php.net/language.namespaces.php'  target="_blank">NAMESPACE</a>.</strong></li>
+</ul>  
+<blockquote>Należy wiec <strong>pamiętać</strong>, że PHP <strong>rozróżnia wielkości liter</strong>, a tworząc <strong>nazewnictwo klas</strong> zawsze stosujemy styl typu: <strong>upper <a title="CamelCase" href='http://pl.wikipedia.org/wiki/CamelCase' >camelCase</a></strong>.</blockquote>  
+<h3><strong> <a id="metody"></a>Odwołanie do funkcji składowej(metody)  
+</strong></h3>  
+Podobnie jak wypadku odwołania do nieistniejącej klasy i w tym wypadku również zostaniemy poinformowani o błędzie:  
+
+
+<pre>PHP <strong>Fatal error</strong>:  Call to undefined method NaszaKlasa::naszaMetoda() in /home/[...]/index.php on line X</pre>
+Błąd ten oczywiście podobnie jak było w wypadku klas może być:  
+<ul>  
+    <li>wynikiem naszej literówki np.</li>
+</ul>  
+
+
+<pre>&lt;?php
+    <a href='http://www.php.net/language.oop5.basic.php'  target="_blank">class</a> Hello{
+
+        <a href='http://www.php.net/language.oop5.visibility.php'  target="_blank">private</a> $hello;
+        <a href='http://www.php.net/language.oop5.visibility.php'  target="_blank">public</a> function sayHello(){
+
+           <a href='http://php.net/function.return.php'  target="_blank">return</a> $this-&gt;hello = "Hello World";
+
+        }
+    }
+
+    $obiekt = <a href='http://www.php.net/language.oop5.basic.php'  target="_blank">new</a> Hello;     
+    echo $obiekt-&gt;seyHello();</pre>
+<ul>  
+    <li>jednakże w tym wypadku odwołanie się do metody zapisanej małymi literami zadziała.</li>
+</ul>  
+Ponadto istnieją jeszcze inne możliwości generujące błędy funkcji składowych:  
+<ul>  
+    <li>odwołanie do metody, która <strong>nie istnieje</strong> w danej klasie, lub <strong>nie mamy</strong> do niej <strong>dostępu</strong> w wyniku <strong>hermetyzacji metod:</strong></li>
+</ul>  
+
+
+<pre>PHP <strong>Fatal error</strong>: Call to protected method NaszaKlasa::naszaMetoda() from context '' in /home/[...]/index.php on line X</pre>
+lub  
+
+
+<pre>PHP <strong>Fatal error</strong>:  Call to private method NaszaKlasa::naszaMetoda() from context '' in /home/[...]/index.php on line X</pre>
+<ul>  
+    <li>odwołanie się do metody jako zmiennej:</li>
+</ul>  
+
+
+<pre>PHP <strong>Notice</strong>:  Undefined property: NaszaKlasa::$naszaMetoda in /home/[...]/index.php on line X</pre>
+<blockquote><strong>Pamiętaj!</strong>
+
+Tworząc nazewnictwo <strong>funkcji składowych(metod)</strong> zawsze stosuj styl typu: <strong><a title="CamelCase" href='http://pl.wikipedia.org/wiki/CamelCase' >camelCase</a></strong>, bo to później znacznie <strong>usprawnia</strong> <strong>interpretacje</strong> napisanego przez nas <strong>kodu</strong>.</blockquote>  
+<h4><a id="oop4"></a>Parę słów o kompatybilności z PHP4 w OOP</h4>  
+Jak wiadomo, aby wszystko to co działało poprawnie w wersji PHP4 działało nadal w wersji <strong>PHP5 </strong>zastosowano kompatybilność wstecz, tak samo było w wypadku OOP. Jednakże przy pełnym raportowaniu błędów mogą pojawiać się problemy, oto jeden z nich:
+
+Załóżmy, że stworzymy sobie klasę Osoba, w której zadeklarujemy zmienna imię:  
+
+
+<pre>&lt;?php
+
+    class Osoba {
+
+        var $imie;
+
+    }</pre>
+to mimo iż deklaracja takowa jest poprawna, przy pełnym raportowaniu błędów, ujrzymy komunikat:  
+
+
+<pre>Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in index.php on line 5</pre>
+Jest to oczywiście informacja, że stosowanie <strong>var</strong>, w obecnej wersji PHP jest nie zalecane i należy nadać jej typ jednego z modyfikatorów : public/private/protected.  
+<h3><a id="zero"></a><strong>Dzielenie przez zero</strong></h3>  
+Na koniec warto jeszcze wspomnieć o pewnym <b>Warning`u</b>, który teoretycznie nigdy nie powinien się nam pojawić, ale jak wiadomo czasem może się zdarzyć, a mianowicie, kiedy próbujemy podzielić jakaś liczbę przez zero:  
+
+
+<pre>&lt;?php
+    $n = 10;
+
+    echo $n/0;</pre>
+
+
+<pre>PHP <strong>Warning</strong>:  Division by zero in /home/[..]/index.php on line 4</pre>
+Oczywiście jak wiadomo nikt z nas nie napisze swojego skryptu dodając jawnie <code>0</code>, jest to tylko przykład prezentujący działanie, jednakże należy zawsze pamiętać, by dzieląc coś sprawdzać czy czasem nasza wartość nie przyjmuje właśnie zera.  
+<h3><a id="operator_por"></a><strong>Operator porównania(ważne)</strong></h3>  
+Operatory porównania są niezbędne do korzystania z instrukcji warunkowych (jeśli coś to zrób coś). Zwracają one wartość <strong>TRUE</strong> (<strong>prawda</strong> – <strong>1</strong>) lub <strong>FALSE</strong> (<strong>fałsz</strong> – <strong>0</strong>).  
+<table width="590" border="1">  
+<tbody>  
+<tr>  
+<td>Przykład</td>  
+<td>Nazwa</td>  
+<td>Wynik</td>  
+</tr>  
+<tr>  
+<td>$a==$b</td>  
+<td>Równy</td>  
+<td>Prawda jeśli $a jest równe $b.</td>  
+</tr>  
+<tr>  
+<td style="width: auto;">$a===$b</td>  
+<td>Identyczny</td>  
+<td>Prawda jeśli $a jest równe $b i są tego samego typu. (od PHP4)</td>  
+</tr>  
+<tr>  
+<td>$a!=$b</td>  
+<td>Nie równe</td>  
+<td>Prawda jeśli $a nie jest równe $b.</td>  
+</tr>  
+<tr>  
+<td>$a!==$b</td>  
+<td>Nie identyczny</td>  
+<td>Prawda jeśli $a nie jest równe $b lub nie są tego samego typu. (od PHP4)</td>  
+</tr>  
+<tr>  
+<td>$a &lt; $b</td>  
+<td>Mniejsze</td>  
+<td>Prawda jeśli $a jest mniejsze niż $b.</td>  
+</tr>  
+<tr>  
+<td>$a &gt; $b</td>  
+<td>Większe</td>  
+<td>Prawda jeśli $a jest większe niż $b.</td>  
+</tr>  
+<tr>  
+<td>$a&lt;=$b</td>  
+<td>Mniejsze lub równe</td>  
+<td>Prawda jeśli $a jest mniejsze lub równe $b.</td>  
+</tr>  
+<tr>  
+<td>$a&gt;=$b</td>  
+<td>Większe lub równe</td>  
+<td>Prawda jeśli $a jest większe lub równe $b.</td>  
+</tr>  
+</tbody>  
+</table>  
+<blockquote>  
+<h4>Uwaga!!</h4>  
+Ponieważ <strong>1 lutego 2013</strong> roku <strong>udowodniono</strong>, że <strong>operator <code>==</code></strong> potrafi <strong>przyjmować</strong> <strong>błędne wartości</strong>, zaleca się <strong>stosowanie operatora</strong> <code>===</code>, które <strong>sprawdza</strong> również <strong>jakiego typu</strong> są zadane <strong>dane</strong>.</blockquote>  
+<h4><strong>Przykład błędnego wyniku porównania dla operatora <code>==</code> :</strong></h4>  
+
+
+<pre>&lt;?php
+
+    if("1234" == "\t\r\n 1234")
+
+       echo "Takie same\n";
+
+    else
+
+       echo "Nie takie same\n";</pre>
+który zwraca: <code>Takie same</code> , a powinien zwrócić: <code>Nie takie same</code>.  
+<h3><a id="zaokraglenia"></a><strong>Błędy zaokrągleń</strong></h3>  
+Jak wiadomo czasem wymagane jest od użytkownika, aby wprowadził jakieś dane. W tym wypadku skupimy się na danych liczbowych.  
+<h3><strong>Przykład 1</strong></h3>  
+W ostatnich latach rośnie popularność sklepów internetowych, gdzie praktykuje się dodawanie produktów, które zamierzamy zakupić do tzw. Koszyka. Jak wiadomo użytkownik przed finalizacją transakcji, sam określa ile sztuk danego produktu chcę zakupić i tu się właśnie pojawia pytanie: A co jak wprowadzimy blednę dane, przyjrzyjmy się wiec temu z bliska:
+
+Tradycyjnie nasz kod wyglądał by np. tak (oczywiście jest to tylko przykład, bo jak wiadomo tworząc sklepy internetowe operujemy na obiektach, a nie tworzymy sklepu strukturalnie, ale tu chodzi o samą idee):  
+
+
+<pre>&lt;?php
+
+    $ileSztuk = <a href='http://php.net/function.mysql-real-escape-string.php'  target="_blank">mysql_real_escape_string( </a><a href='http://php.net/reserved.variables.post.php'  target="_blank">$_POST[</a>'ilosc_stuk'<a href='http://php.net/reserved.variables.post.php'  target="_blank">] </a><a href='http://php.net/function.mysql-real-escape-string.php'  target="_blank">)</a>;</pre>
+Oczywiście obecnie zaleca się używać <a href='http://php.net/book.mysqli.php'  target="_blank"><strong>mysqli</strong></a> lub <a href='http://php.net/book.pdo.php'  target="_blank"><strong>PDO</strong></a>, jednakże <a href='http://php.net/book.mysql.php'  target="_blank"><strong>mysql</strong></a> nadal jest bardzo popularne, dlatego przykład oparliśmy właśnie na nim, ale skupmy się na naszym problemie:  
+<ul>  
+    <li>Użytkownik podaje jako liczbę sztuk np. <code>1.5</code>, a jak wiadomo liczba sztuk jest liczbą całkowitą, dlatego też następuje zaokrąglenie tej liczby w naszym przypadku do <code>2</code> , dzieję się tak ponieważ w naszej bazie danych ustawiliśmy oczywiście dla naszego rekordu typ całkowity. Dlatego też modyfikujemy stworzony przez nas fragment kodu, następująco:</li>
+</ul>  
+
+
+<pre>&lt;?php
+
+    $ileSztuk = <a href='http://php.net/function.round.php'  target="_blank">round(</a> <a href='http://php.net/reserved.variables.post.php'  target="_blank">$_POST[</a>'ilosc_stuk'<a href='http://php.net/reserved.variables.post.php'  target="_blank">]</a> <a href='http://php.net/function.round.php'  target="_blank">)</a>;</pre>
+Po przetestowaniu widzimy, że wprowadzając liczbę <code>1,5</code> następuje jej odcięcie do pierwszej liczby znaczącej, czyli w naszym przypadku do <code>1</code>. Uwaga w wypadku <a href='http://php.net/function.round.php'  target="_blank">round</a> poprawny wynik zostanie zwrócony tylko dla liczb w których użyty zostanie <code>,</code> np. <code>1,5</code> bo jeśli użyjemy <code>.</code> np. <code>1.5</code> to zwrócony wynik również będzie błędny, dlatego też zaleca się skorzystać z metody rzutowania na typ całkowity.  
+<ul>  
+    <li>Użytkownik podaje jako liczbę sztuk np. <code>-9999999</code>, czyli krótko mówiąc liczbę mniszą od zera, w tym wypadku również rozwiązanie zaprezentowane powyżej nie pomoże, dlatego z pomocą przychodzi nam rzutowanie zmiennych:</li>
+</ul>  
+
+
+<pre>&lt;?php
+
+    $ileSztuk = <a href='http://php.net/language.types.integer.php'  target="_blank">(int)</a>( <a href='http://php.net/reserved.variables.post.php'  target="_blank">$_POST[</a>'ilosc_stuk'<a href='http://php.net/reserved.variables.post.php'  target="_blank">]</a> );
+
+    if( <a href='http://php.net/function.isset.php'  target="_blank">isset( $ileSztuk )</a> &amp;&amp; $ileSztuk &gt; 0 )
+
+    // [...]</pre>
+Jak widać oprócz rzutowania w naszym wypadku na typ całkowity <em>int</em>, należało również sprawdzić, czy czasem nie jest to liczba mniejsza od 0, ponieważ samo rzutowanie by nie wystarczyło.  
+<blockquote><strong>Pamiętaj!</strong>
+
+Kiedy pobieramy od użytkownika, jakieś dane, to <strong>zawsze</strong> należy się <strong>zastanowić</strong> jakie będą one miały <strong>przeznaczenie</strong>. Jeśli to będą np. liczby całkowite jak na zaprezentowanym powyżej przykładzie, to należy <strong>zawszę</strong> przed wprowadzeniem ich do <strong>bazy danych</strong>, przeprowadzić <strong>rzutowanie</strong> na dany <strong>typ</strong> danych, aby <strong>unikać</strong> tego typu <strong>pomyłek</strong>.  
+<blockquote style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.2); background-color: white;"><strong>Uwaga</strong>
+
+<strong>Nigdy</strong> nie należy <strong>rzutować nieznanego</strong> ułamka do typu <em>integer</em>, gdyż może to doprowadzić do <strong>nieoczekiwanych</strong> rezultatów.</blockquote>  
+</blockquote>  
+
+<h3><a id="filtre"></a><strong>Zestawienie podstawowych funkcji odpowiedzialnych za filtrowanie danych od użytkownika</strong></h3>  
+
+<ul>  
+    <li>string <b><a href='http://www.php.net/function.addslashes.php'  target="_blank">addslashes</a></b> ( string <code>string</code> ) Zwraca ciąg znaków z dodanymi znakami \ (backslash) przez znakami specjalnymi, takimi jak: <code>" ' $ \</code>. Przeciwieństwem tej funkcji jest funkcja <strong><a href='http://www.php.net/function.stripslashes.php'  target="_blank">stripslashes</a></strong>. Potrzebne przy dodawaniu danych do bazy danych,</li>
+    <li>string <a href='http://php.net/function.basename.php'  target="_blank"><b>basename </b></a>( string <code>ścieżka</code> [, string <code>przyrostek</code> ] ) Zwraca nazwę pliku, obcinając z ciągu znaków wszystkie foldery,</li>
+    <li>string <b><a href='http://php.net/function.escapeshellcmd.php'  target="_blank">escapeshellcmd</a> </b>( string <code>komenda</code> ) Dodaje do łańcucha znaki, uniemożliwiające jego zinterpretowanie jako polecenia powłoki przez funkcje <a href='http://www.php.net/function.exec.php'  target="_blank">exec()</a>, <a href='http://www.php.net/function.shell_exec.php'  target="_blank">shell_exec()</a> i <a href='http://php.net/function.system.php'  target="_blank">system()</a>,</li>
+    <li>string <b><a href='http://php.net/function.htmlspecialchars.php'  target="_blank">htmlspecialchars</a> </b>( string <code>string</code> [, int <code>quote_style</code> [, string <code>charset</code> ] ] ) Konwertuje znaki specjalne htmlu (<code>&amp;, ", ', &lt; i &gt;</code>) na odpowiednie encje znakowe. Uniemożliwia wykonanie kodu html w przeglądarce,</li>
+    <li>string <b><a href='http://php.net/function.mysql-escape-string.php'  target="_blank">mysql_escape_string</a></b> ( string <code>łańcuch_bez_znaków_unikowych</code> ) Funkcja podobna do <a href='http://www.php.net/function.addslashes.php'  target="_blank">addslashes</a>, tylko bardziej nastawiona na mysql, jednakże obecnie zaleca się korzystanie z klasy <strong>PDO</strong>, gdzie mamy<strong> <a href='http://www.php.net/pdo.quote.php'  target="_blank">PDO::quote</a></strong>,</li>
+    <li>string <b><a href='http://php.net/function.strip-tags.php'  target="_blank">strip_tags</a></b> ( string <code>str</code> [, string <code>dozwolone_znaczniki</code> ] ) Wycina wszystkie tagi html i php z podanego ciągu znaków,</li>
+    <li>rodzina funkcji filtrujących np. <span class="type"><a class="type mixed" href='http://www.php.net/manual/en/language.pseudo-types.php' #language.types.mixed">mixed</a></span> <a href='http://www.php.net/function.filter-input.php'  target="_blank"><span class="methodname"><strong>filter_input</strong></span></a> ( <span class="methodparam"><span class="type">int</span> <code class="parameter">typ</code></span> , <span class="methodparam"><span class="type">string</span> <code class="parameter">nazwa_zmiennej</code></span> [, <span class="methodparam"><span class="type">int</span> <code class="parameter">filtr</code><span class="initializer"> = FILTER_DEFAULT</span></span> [, <span class="methodparam"><span class="type"><a class="type mixed" href='http://www.php.net/manual/en/language.pseudo-types.php' #language.types.mixed">mixed</a></span> <code class="parameter">opcje</code></span> ] ] ),</li>
+    <li>string <a href='http://php.net/function.trim.php'  target="_blank"><strong>trim</strong></a> ( string <code>str</code> [, string <code>charlist</code> = " \t\n\r\0\x0B" ] ) Usuwa niedrukowane znaki (spacje, tabulacje) na początku i końcu łańcucha.</li>
+</ul>  
+
+<h2><a id="poziomy_rb"></a><strong>Poziomy raportowania błędów</strong></h2>  
+
+<p>Poziom raportowania błędów określa, na jakie zdarzenia PHP ma reagować wyświetleniem stosownego komunikatu. Docelowo ustawia się go w pliku konfiguracyjnym <code>php.ini</code>, w dyrektywie <i>error<em>reporting</i>. Początkowo zaleca się ustawienie raportowania błędów na poziomie <i>E</em>ALL | E<em>STRICT </i>dla PHP &lt; 5.4.0, ponieważ wraz z wersją 5.4.0 - <em>E</em>STRICT</em> stał się częścią <em>E<em>ALL</em> i wystarczy użyć w tym wypadku tylko <em><em>E</em>ALL</em></em>. Jednakże takie ustawienie należy stosować tylko i wyłącznie w fazie tworzenia/testowania naszych skryptów. Więc gdy już zakończymy prace nad naszym skryptem i umieścimy w Internecie, należy wyłączyć wyświetlanie wszystkich błędów, ponieważ takie komunikaty często ujawniają wiele informacji o skrypcie, czy też używanym przez nas oprogramowaniu, które mogą ułatwić atak na nasz serwis.</p>
+
+<p>Poziom raportowania można tymczasowo zmieniać z poziomu skryptu funkcją <code>error_reporting()</code>:  </p>
+
+<h3><strong>Przykład 1</strong></h3>  
+
+<pre>&lt;?php
+
+    <a href='http://www.php.net/manual/en/errorfunc.configuration.php' #ini.error-reporting" target="_blank">error_reporting( </a>E_ALL ^ E_NOTICE<a href='http://www.php.net/manual/en/errorfunc.configuration.php' #ini.error-reporting" target="_blank"> )</a>;
+
+    echo 'Brak komunikatu Notice: '.$nieistniejacaZmienna;</pre>
+
+<p>Funkcja ta zawsze zwraca jako rezultat dotychczasowy poziom raportowania, dzięki czemu możemy go potem bez problemu przywrócić:  </p>
+
+<h3><strong>Przykład 1a</strong></h3>  
+
+<pre>&lt;?php
+
+    $blad = <a href='http://www.php.net/manual/en/errorfunc.configuration.php' #ini.error-reporting" target="_blank">error_reporting( </a>E_ALL ^ E_NOTICE<a href='http://www.php.net/manual/en/errorfunc.configuration.php' #ini.error-reporting" target="_blank"> )</a>;
+
+    echo 'Brak komunikatu Notice: '.$nieistniejacaZmienna;
+
+    <a href='http://www.php.net/manual/en/errorfunc.configuration.php' #ini.error-reporting" target="_blank">error_reporting( </a>$blad <a href='http://www.php.net/manual/en/errorfunc.configuration.php' #ini.error-reporting" target="_blank">)</a>;
+
+    echo 'A teraz już jest: '.$nieistniejacaZmienna;</pre>
+
+<h3><strong>Google hacking</strong></h3>  
+
+<p>Jedną z popularnych technik, którą można zastosować, aby wyłuskać interesujące informacje o aplikacji z komunikatów o błędach, jest tzw. <a href='http://en.wikipedia.org/wiki/Google_hacking' >google hacking</a> – czyli, najprościej rzecz ujmując, poszukiwanie w Google zaindeksowanych stron zawierających komunikaty z błędami.  </p>
+
+<h3><strong>Przykład 1</strong></h3>  
+
+<pre>site:comstudio.fwl.pl unknown
+site:comstudio.fwl.pl error
+site:comstudio.fwl.pl warning
+site:comstudio.fwl.pl exception
+site:comstudio.fwl.pl invalid
+site:comstudio.fwl.pl sql query</pre>
+
+<p>Ponadto korzystając z wyszukiwarki, atakujący nie potrzebuje uzyskiwać dostępu do naszej aplikacji – więc nawet nie wiemy o potencjalnie rozpoczynającym się ataku… Co więcej, wystarczy, że nasza aplikacja działała tylko chwilę w trybie ze szczegółowym wyświetlaniem błędów i że akurat w tym momencie strony z komunikatami błędów zaindeksował robot. Dlatego należy <strong>pamiętać</strong>, że <strong>nigdy</strong> nie należy <strong>pozostawiać włączonego raportowania</strong> błędów jeśli umieszczamy naszą aplikację <strong>w sieci</strong>.  </p>
+
+<h4>Dostępne poziomy raportowania błędów:</h4>  
+
+<p><strong>Kompatybilność:</strong> PHP4, PHP5.  </p>
+
+<table border="0">  
+<tbody class="tbody">  
+<tr valign="middle">  
+<td align="left">1</td>  
+<td align="left">E_ERROR</td>  
+</tr>  
+<tr valign="middle">  
+<td align="left">2</td>  
+<td align="left">E_WARNING</td>  
+</tr>  
+<tr valign="middle">  
+<td align="left">4</td>  
+<td align="left">E_PARSE</td>  
+</tr>  
+<tr valign="middle">  
+<td align="left">8</td>  
+<td align="left">E_NOTICE</td>  
+</tr>  
+<tr valign="middle">  
+<td align="left">16</td>  
+<td align="left">E_CORE_ERROR</td>  
+</tr>  
+<tr valign="middle">  
+<td align="left">32</td>  
+<td align="left">E_CORE_WARNING</td>  
+</tr>  
+<tr valign="middle">  
+<td align="left">64</td>  
+<td align="left">E_COMPILE_ERROR</td>  
+</tr>  
+<tr valign="middle">  
+<td align="left">128</td>  
+<td align="left">E_COMPILE_WARNING</td>  
+</tr>  
+<tr valign="middle">  
+<td align="left">256</td>  
+<td align="left">E_USER_ERROR</td>  
+</tr>  
+<tr valign="middle">  
+<td align="left">512</td>  
+<td align="left">E_USER_WARNING</td>  
+</tr>  
+<tr valign="middle">  
+<td align="left">1024</td>  
+<td align="left">E_USER_NOTICE</td>  
+</tr>  
+<tr valign="middle">  
+<td align="left">6143</td>  
+<td align="left">E_ALL</td>  
+</tr>  
+<tr valign="middle">  
+<td align="left">2048</td>  
+<td align="left">E_STRICT</td>  
+</tr>  
+<tr valign="middle">  
+<td align="left">4096</td>  
+<td align="left">E_RECOVERABLE_ERROR</td>  
+</tr>  
+<tr valign="middle">  
+<td align="left">8192</td>  
+<td align="left">E_DEPRECATED</td>  
+</tr>  
+<tr valign="middle">  
+<td align="left">16384</td>  
+<td style="text-align: left;">E_USER_DEPRECATED</td>  
+</tr>  
+</tbody>  
+</table>  
+
+<p style="text-align: right;"><em>Ostatnia Aktualizacja</em>  
+<em>21 marca 2013 roku</em></p>  
+
+<p style="text-align: right;">Autor: Andrzej Kostrzewa</p>]]></description><link>http://comstudio.github.io/php-kazdy-popelnia-bledy/</link><guid isPermaLink="false">dc0a66fe-5597-4f08-8f7d-cbdbcb5c612b</guid><category><![CDATA[PHP]]></category><dc:creator><![CDATA[admin]]></dc:creator><pubDate>Sat, 16 Mar 2013 01:40:09 GMT</pubDate></item><item><title><![CDATA[UTF-8 bez BOM]]></title><description><![CDATA[<p><i class="post-cover-icon" data-icon="fa-language" data-color="#FFFFFF" data-bg-color="#a2eda2"></i> <br />
+Rozpoczynając pracę nad nowym projektem, zawsze na samym początku należy określić jakiego kodowania znaków będziemy używać. Obecnie aby zagwarantować dużą kompatybilność przyjęło się stosować kodowanie UTF-8. Na pierwszy rzut oka wszystko wydaję się bardzo proste jednakże wcale takie nie jest, ponieważ wybierając UTF-8 często zapominamy o tym, że trzeba zaznaczyć, aby do pliku nie był dodawany nagłówek(<strong>BOM</strong>), ponieważ gdy o tym zapomnimy i wyświetlimy naszą stronę to na ekranie ukarze się oprócz treści np. tajemniczy komunikat (<b>Warning)</b>:  </p>
+
+<pre style="front-size: 5em;"><b>Warning</b>:  session_start() [<a href='http://php.net/manual/en/function.session-start.php'  target="_blank">function.session-start</a>]: Cannot send session cache limiter - headers already sent (output started at ...\www\index.php:1) in ...<b>\www\index.php</b> on line <b>2  
+</b></pre>  
+
+<p>Większość początkujących programistów to zignoruje i pewnie wyłączy wyświetlanie błędów poprzez dodanie <a title="Operator @" href='http://comstudio.fwl.pl/blog/2013/03/php-kazdy-popelnia-bledy/' #operator">@</a> przed <code>session<em>start();</code> , lecz każdy bardziej doświadczony będzie wiedział, że po prostu w naszym pliku został na początku zapisany nagłówek informujący o kodowaniu czyli nasze <strong>BOM</strong>, jednakże nie jest on widoczny w większości edytorów dlatego też programiści o tym zapominają, a to sprawia iż wywołanie np. funkcji <code>session</em>start()</code> , <code>header()</code> , <code>include()</code> , <code>require()</code> zakończy się wyświetleniem komunikatu o błędzie, którego nigdy nie należy ignorować!  </p>
+
+<h2>Co można z tym zrobić?</h2>  
+
+<p>Kiedy już do naszego skryptu wkradł się <strong>BOM</strong>, należy go oczywiście niezwłocznie z niego usunąć, poprzez konwersje naszego pliku na format UTF-8 bez BOM.</p>
+
+<p>W internecie można znaleźć wiele edytorów kodu, które cieszą się ogromną popularnością i są to przeważnie edytory typu IDE, które umożliwiają usuwanie naszego BOM z pliku, jednakże osobiście polecamy dla osób pracujących na platformie Windows <code>notepad++</code> , który również doskonale sobie z tym radzi.  </p>
+
+<h3>Jak usunąć BOM z pliku w programie <code>notepad++</code></h3>  
+
+<p>Otwieramy nasz plik w <code>notepad++</code>, a następnie przechodzimy do menu <br />
+<strong>Format</strong> gdzie wybieramy opcje <strong>Konwertuj na format UTF-8 bez BOM</strong> <br />
+i <strong>zapisujemy</strong> nasz plik.  </p>
+
+<h3>Jeśli jednak nie posiadamy odpowiedniego programu można wykorzystać do tego  funkcję napisaną  w języku <code>php</code> :</h3>  
+
+<pre>$_file = ''; # nazwa pliku
+
+function removeBOM($page){
+    if(substr($page,0,3)==chr(hexdec('EF')).chr(hexdec('BB')).chr(hexdec('BF'))){
+       return substr($page,3);
+   }else{
+       return $page;
+   }
+}
+
+$file = file_get_contents($_file);
+if (!file_put_contents($_file,removeBOM($file))) {
+    echo "Nie udało się zapisać do pliku";
+}</pre>
+
+<p>Należy jednak pamiętać, że <strong>zaleca</strong> się usuwać BOM, <strong>za pomocą </strong>odpowiedniego<strong> edytora</strong>, a <strong>druga metoda</strong> została przedstawiona jako <strong>ciekawostka</strong>.</p>]]></description><link>http://comstudio.github.io/utf-8-bez-bom-2/</link><guid isPermaLink="false">593b3748-dc98-481a-b358-a3050d556a3f</guid><category><![CDATA[PHP]]></category><category><![CDATA[HTML]]></category><category><![CDATA[JavaScript]]></category><dc:creator><![CDATA[admin]]></dc:creator><pubDate>Tue, 12 Mar 2013 18:35:28 GMT</pubDate></item><item><title><![CDATA[Polskie czcionki w WordPress]]></title><description><![CDATA[<p><i class="post-cover-icon" data-icon="fa-wordpress" data-color="#FFFFFF" data-bg-color="#5FBDCE"></i> <br />
+Kiedy wybierzemy motyw dla WordPress-a może się okazać, że czcionka, która została zdefiniowana w szablonie motywu, nie obsługuje polskich znaków, a co za tym idzie polskie encje są podmieniane, co zazwyczaj nie wygląda dobrze. Z pomocą przychodzi jak zwykle Google i jego baza webfont-ów , dostępna pod adresem <a href='http://www.google.com/fonts/'  target="_blank">http://www.google.com/fonts/</a>. Wystarczy, że odnajdziemy w nagłówku źródła naszej strony link o <code>id="<a>webfonts-css</a>"</code> lub link o adresie <code><a>http://fonts.googleapis.com/css?family={nazwa i typ czcionki}</a></code>, oczywiście przy włączonej opcji niestandardowych czcionek, a następnie wybierzemy czcionkę dla której chcemy ustawić polskie znaki np. <code><span style="text-decoration: underline;">PT Sans</span></code>, kiedy już dokonamy wyboru, trzeba zalogować się do <em>klienta</em> <em>FTP </em>i zmodyfikować plik który dla domyślnej instalacji znajduję się pod wskazanym adresem:  </p>
+
+<pre> ./wp-content/themes/{nazwa_motywu}/functions.php</pre>
+
+<p>Gdzie oczywiście <code>{nazwa_motywu}</code> odpowiada naszemu wybranemu motywowi strony. Modyfikacja wygląda następująco:  </p>
+
+<ul>  
+    <li>W pliku odnajdujemy nazwę naszej czcionki</li>
+    <li>Na końcu tej nazwy dopisujemy <strong>&amp;subset=latin-ext</strong></li>
+    <li>Następnie zapisujemy i odświeżamy stronę, po czym polskie encje powinny być wyświetlane poprawnie.</li>
+</ul>  
+
+<p>Dla ułatwienia pokażemy przykładową modyfikację takiego pliku(dla motywu <strong>Emphaino</strong>):  </p>
+
+<pre><span style="float: left;">functions.php</span><span style="float: right;">(153)</span></pre>
+
+<pre>function emphaino_enqueue_webfonts() {
+    $font_families[] = 'PT+Sans:400,700,400italic';
+    $font_families[] = 'Bree+Serif<strong>&amp;subset=latin-ext</strong>';
+
+    $protocol = is_ssl() ? 'https' : 'http';
+    $query_args = array(
+        'family' =&gt; implode( '|', $font_families ),
+    );
+    wp_enqueue_style( 'webfonts', add_query_arg( $query_args, "$protocol://fonts.googleapis.com/css" ), array(), null );
+}</pre>
+
+<p>Gdzie wartość dodana (<strong>&amp;subset=latin-ext</strong>) została wytłuczona.</p>]]></description><link>http://comstudio.github.io/polskie-czcionki-w-wordpress/</link><guid isPermaLink="false">2cf03e59-6b58-43f1-97a5-f4116395c1bb</guid><category><![CDATA[WordPress]]></category><dc:creator><![CDATA[admin]]></dc:creator><pubDate>Tue, 12 Mar 2013 01:18:12 GMT</pubDate></item><item><title><![CDATA[Witamy]]></title><description><![CDATA[<p><i class="post-cover-icon" data-icon="fa-road" data-color="#FFFFFF" data-bg-color="#fff482"></i>Jako <strong>Agencja Interaktywna</strong> doskonale wiemy z jakimi problemami boryka się początkujący webdeveloper, dlatego też stworzyliśmy ten blog, aby ułatwić wam pierwsze kroki. Nie wykluczone, że starsi programiści znajdą tutaj też coś dla siebie. Zapraszamy do śledzenia naszego bloga.  </p>
+
+<p style="text-align: right;">Zespół,  
+<strong>ComStudio</strong></p>]]></description><link>http://comstudio.github.io/witamy/</link><guid isPermaLink="false">763d15df-8ba7-4023-81fe-e3ac728e7996</guid><dc:creator><![CDATA[admin]]></dc:creator><pubDate>Sun, 10 Mar 2013 00:22:23 GMT</pubDate></item></channel></rss>
